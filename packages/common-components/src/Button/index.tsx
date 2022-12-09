@@ -14,7 +14,7 @@ export type Color =
   | 'teal'
   | 'blue'
   | 'cyan'
-  | 'purple'
+  | 'violet'
   | 'pink';
 export type Size = 'xs' | 'sm' | 'md' | 'lg';
 export type Variant = 'solid' | 'outline' | 'ghost' | 'link';
