@@ -1,6 +1,6 @@
 {
   "name": "monorepo-template",
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.3.0",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -42,9 +42,11 @@
     "typescript": "^4.5.4"
   },
   "resolutions": {
+    "@storybook/react/webpack": "^5",
     "@storybook/core-common/webpack": "^5",
     "@storybook/core-server/webpack": "^5",
-    "@storybook/react/webpack": "^5"
+    "@storybook/builder-webpack4/webpack": "^5",
+    "@storybook/manager-webpack4/webpack": "^5"
   },
   "dependencies": {
     "@babel/runtime": "^7.17.8"

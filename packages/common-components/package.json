@@ -5,7 +5,8 @@
   "scripts": {
     "storybook": "start-storybook -p 4000",
     "build-storybook": "build-storybook -c .storybook",
-    "test": "jest"
+    "test": "jest",
+    "chromatic": "npx chromatic --project-token=8860cf993f7b"
   },
   "dependencies": {
     "@babel/runtime": "^7.16.7",
@@ -46,11 +47,15 @@
     "@types/react-transition-group": "^4.4.4",
     "@types/testing-library__jest-dom": "^5.14.2",
     "babel-loader": "^8.2.3",
+    "chromatic": "^6.11.4",
     "jest": "^27.4.7",
     "jest-canvas-mock": "^2.3.1",
     "prop-types": "^15.8.1",
     "regenerator-runtime": "^0.13.9",
     "typescript": "^4.5.4",
     "typescript-styled-plugin": "^0.18.2"
-  }
+  },
+  "version": "",
+  "readme": "ERROR: No README data found!",
+  "_id": "@common/components@"
 }
