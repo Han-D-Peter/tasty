@@ -4,6 +4,7 @@
   "main": "src/index.ts",
   "scripts": {
     "storybook": "start-storybook -p 4000",
+    "build-storybook": "build-storybook -c .storybook",
     "test": "jest"
   },
   "dependencies": {
