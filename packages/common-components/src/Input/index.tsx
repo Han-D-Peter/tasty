@@ -1,10 +1,4 @@
-import {
-  CSSProperties,
-  forwardRef,
-  InputHTMLAttributes,
-  useEffect,
-  useMemo,
-} from 'react';
+import { CSSProperties, forwardRef, InputHTMLAttributes, useMemo } from 'react';
 
 import { css, useTheme } from '@emotion/react';
 
