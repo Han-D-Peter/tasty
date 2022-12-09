@@ -188,7 +188,7 @@ const theme: ITheme = {
         active: colors.default.colors.cyan.cyan5,
       },
     },
-    purple: {
+    violet: {
       basic: colors.default.colors.violet.violet7,
       solid: {
         normal: colors.default.colors.violet.violet7,

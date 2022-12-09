@@ -342,7 +342,7 @@ export interface ITheme {
         active: string;
       };
     };
-    purple: {
+    violet: {
       basic: string;
       solid: {
         normal: string;

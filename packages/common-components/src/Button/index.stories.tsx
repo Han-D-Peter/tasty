@@ -34,7 +34,7 @@ export default {
         'teal',
         'blue',
         'cyan',
-        'purple',
+        'violet',
         'pink',
       ],
       control: { type: 'select' },
