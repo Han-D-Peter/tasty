@@ -47,11 +47,7 @@ const Box = forwardRef<HTMLDivElement, BoxProps>(
       [args]
     );
     return (
-      <div
-        ref={ref}
-        css={[centeredOrNotStyle, defaultStyle]}
-        style={{ ...args }}
-      >
+      <div ref={ref} css={[centeredOrNotStyle, defaultStyle]}>
         {children}
       </div>
     );
