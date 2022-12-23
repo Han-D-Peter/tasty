@@ -9,7 +9,11 @@ import {
 import { css } from '@emotion/react';
 
 type BoxProps = HTMLAttributes<HTMLDivElement> & {
-  children?: ReactChild;
+  children?: ReactChild[] | ReactChild | null;
+
+  /**
+   * You can inject styles as 'style' properties on react node.
+   */
   boxStyle?: CSSProperties;
 };
 

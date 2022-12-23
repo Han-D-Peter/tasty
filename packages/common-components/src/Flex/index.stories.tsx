@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { Story } from '@storybook/react';
 
-import Flex, { FlexProps } from './index';
+import Flex from './index';
 
 export default {
   title: 'Components/Flex',
@@ -22,7 +22,7 @@ export default {
   argTypes: {},
 };
 
-export const Basic: Story<FlexProps> = ({ ...args }) => (
+export const Basic: Story<typeof Flex> = ({ ...args }) => (
   <div
     style={{
       display: 'grid',
@@ -40,9 +40,9 @@ export const Basic: Story<FlexProps> = ({ ...args }) => (
       }}
     >
       <Flex {...args}>
-        <div>box</div>
-        <div>box</div>
-        <div>box</div>
+        <div>box1</div>
+        <div>box2</div>
+        <div>box3</div>
       </Flex>
     </div>
   </div>

@@ -1,120 +1,61 @@
-import { forwardRef, useMemo, ReactNode } from 'react';
+import { CSSProperties, forwardRef, ReactChild, useMemo } from 'react';
 
 import { css } from '@emotion/react';
 
-type Globals =
-  | '-moz-initial'
-  | 'inherit'
-  | 'initial'
-  | 'revert'
-  | 'revert-layer'
-  | 'unset';
+import Box from '../Box/index';
 
-export type FlexProps = {
-  flexDirection?: Globals | 'row' | 'row-reverse' | 'column' | 'column-reverse';
-  flexFlow?:
-    | Globals
-    | 'column'
-    | 'column-reverse'
-    | 'nowrap'
-    | 'row'
-    | 'row-reverse'
-    | 'wrap'
-    | 'wrap-reverse';
+type FlexProps = {
+  children?: ReactChild[] | ReactChild | null;
 
-  flexWrap?: Globals | 'nowrap' | 'wrap' | 'wrap-reverse';
-  justifyContent?:
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly'
-    | 'start'
-    | 'end'
-    | 'left'
-    | 'right';
-  alignItems?:
-    | 'stretch'
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'baseline'
-    | 'first baseline'
-    | 'last baseline'
-    | 'start'
-    | 'end'
-    | 'self-start'
-    | 'self-end';
-  alignContent?:
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly'
-    | 'stretch'
-    | 'start'
-    | 'end'
-    | 'baseline'
-    | 'first baseline'
-    | 'last baseline';
-  gap?: number;
-  rowGap?: number;
-  columnGap?: number;
-  children?: ReactNode;
+  /**
+   * You can inject styles as 'style' properties on react node.
+   */
+  boxStyle?: CSSProperties;
+
+  /**
+   * You can choose a position of contents.
+   */
+  centered?: boolean;
+
+  /**
+   * You can choose a direction of contents.
+   */
+  direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
 };
 
-const defaultStyle = css`
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
-
 const Flex = forwardRef<HTMLDivElement, FlexProps>(
-  (
-    {
-      children,
-      flexDirection,
-      flexFlow,
-      flexWrap,
-      justifyContent,
-      alignItems,
-      alignContent,
-      gap,
-      rowGap,
-      columnGap,
-    },
-    ref
-  ) => {
-    const flexStyle = useMemo(
-      () => css`
-        flex-direction: ${flexDirection};
-        flex-flow: ${flexFlow};
-        flex-wrap: ${flexWrap};
-        justify-content: ${justifyContent};
-        align-items: ${alignItems};
-        align-content: ${alignContent};
-        gap: ${gap};
-        row-gap: ${rowGap};
-        column-gap: ${columnGap};
-      `,
-      [
-        flexDirection,
-        flexFlow,
-        flexWrap,
-        justifyContent,
-        alignItems,
-        alignContent,
-        gap,
-        rowGap,
-        columnGap,
-      ]
-    );
+  ({ children, boxStyle, centered, direction }, ref) => {
+    const flexCenteredStyles = useMemo(() => {
+      if (centered) {
+        return {
+          justifyContent: 'center',
+          alignItems: 'center',
+        };
+      }
+      return {};
+    }, [centered]);
+
+    const flexDirectionStyles = useMemo(() => {
+      if (direction) {
+        return {
+          flexDirection: direction,
+        };
+      }
+      return {};
+    }, [direction]);
+
     return (
-      <div ref={ref} css={[defaultStyle, flexStyle]}>
+      <Box
+        ref={ref}
+        boxStyle={{
+          display: 'flex',
+          ...flexCenteredStyles,
+          ...flexDirectionStyles,
+          ...boxStyle,
+        }}
+      >
         {children}
-      </div>
+      </Box>
     );
   }
 );
