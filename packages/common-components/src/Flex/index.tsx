@@ -29,7 +29,7 @@ const Flex = forwardRef<HTMLDivElement, FlexProps>(
       if (centered) {
         return {
           justifyContent: 'center',
-          alignItems: 'center',
+          alignItems: 'stretch',
         };
       }
       return {};
