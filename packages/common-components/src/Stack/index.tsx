@@ -1,15 +1,20 @@
-import { forwardRef, useMemo, ReactElement } from 'react';
+import React, {
+  forwardRef,
+  useMemo,
+  ReactElement,
+  HTMLAttributes,
+} from 'react';
 
 import { css } from '@emotion/react';
 
-export type StackProps = {
+type StackProps = HTMLAttributes<HTMLDivElement> & {
   direction?: 'column' | 'row';
   gap?: number;
   divider?: ReactElement;
 };
 
 const Stack = forwardRef<HTMLDivElement, StackProps>(
-  ({ direction = 'row', children }, ref) => {
+  ({ direction = 'row', gap, divider, children }, ref) => {
     const directionStyle = useMemo(
       () => css`
         ${direction === 'column' &&
@@ -19,9 +24,21 @@ const Stack = forwardRef<HTMLDivElement, StackProps>(
       `,
       [direction]
     );
+    const gapStyle = useMemo(
+      () => css`
+        margin-bottom: ${gap}px;
+      `,
+      [gap]
+    );
     return (
       <div ref={ref} css={directionStyle}>
-        {children}
+        {React.Children.map(children, child => (
+          <div>
+            <div css={[gapStyle]} />
+            <div className="Row">{child}</div>
+            {divider && divider}
+          </div>
+        ))}
       </div>
     );
   }

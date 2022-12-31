@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 
 import StackDivider from '../StackDivider/index';
 
-import Stack, { StackProps } from './index';
+import Stack from './index';
 
 export default {
   title: 'Components/Stack',
@@ -29,7 +29,7 @@ export default {
   },
 };
 
-export const Basic: Story<StackProps> = ({ ...args }) => (
+export const Basic: Story<typeof Stack> = ({ ...args }) => (
   <div
     style={{
       display: 'grid',
@@ -46,7 +46,7 @@ export const Basic: Story<StackProps> = ({ ...args }) => (
         margin: '5px',
       }}
     >
-      <Stack {...args}>
+      <Stack {...args} divider={<StackDivider />}>
         <div>box</div>
         <div>box</div>
         <div>box</div>
