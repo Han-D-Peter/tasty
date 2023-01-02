@@ -3,6 +3,20 @@ import { ITheme } from './types';
 
 const theme: ITheme = {
   colors: colors.default.colors,
+  radioSize: {
+    xs: {
+      size: 0.75,
+    },
+    sm: {
+      size: 1,
+    },
+    md: {
+      size: 1.25,
+    },
+    lg: {
+      size: 1.5,
+    },
+  },
   btnSize: {
     xs: {
       width: 80,

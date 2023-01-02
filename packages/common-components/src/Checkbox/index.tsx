@@ -2,9 +2,8 @@ import { forwardRef, InputHTMLAttributes, useMemo } from 'react';
 
 import { css, useTheme } from '@emotion/react';
 
+import { getCheckboxColorCode } from '../../utils/utils';
 import { Color, Size } from '../Button';
-
-import { getCheckboxColorCode } from './utils';
 
 export type CheckBoxProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
