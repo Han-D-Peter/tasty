@@ -5,6 +5,7 @@ export const getCheckboxColorCode = (
       [colorGrade: string]: string;
     };
   },
-  colorScheme: string
+  colorScheme: string,
+  grade = 4
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-) => colors[colorScheme][`${colorScheme}4`];
+) => colors[colorScheme][`${colorScheme}${grade}`];
