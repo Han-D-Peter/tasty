@@ -157,6 +157,20 @@ export interface ITheme {
       orange9: string;
     };
   };
+  radioSize: {
+    xs: {
+      size: number;
+    };
+    sm: {
+      size: number;
+    };
+    md: {
+      size: number;
+    };
+    lg: {
+      size: number;
+    };
+  };
   btnSize: {
     xs: {
       width: number;

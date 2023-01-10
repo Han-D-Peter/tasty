@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { css, useTheme } from '@emotion/react';
 
-import { getCheckboxColorCode } from '../Checkbox/utils';
+import { getCheckboxColorCode } from '../../utils/utils';
 
 export type Color =
   | 'gray'
