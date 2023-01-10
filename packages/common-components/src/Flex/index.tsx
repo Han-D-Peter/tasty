@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import Box from '../Box/index';
 
 type FlexProps = {
-  children?: ReactChild[] | ReactChild | null;
+  children?: ReactNode;
 
   /**
    * You can inject styles as 'style' properties on react node.
