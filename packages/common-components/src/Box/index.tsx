@@ -1,53 +1,32 @@
-import { forwardRef, CSSProperties, ReactChild, useMemo } from 'react';
+import {
+  forwardRef,
+  CSSProperties,
+  ReactChild,
+  useMemo,
+  HTMLAttributes,
+} from 'react';
 
 import { css } from '@emotion/react';
 
-export type Color =
-  | 'gray'
-  | 'red'
-  | 'orange'
-  | 'yellow'
-  | 'green'
-  | 'teal'
-  | 'blue'
-  | 'cyan'
-  | 'violet'
-  | 'pink';
-export type Size = 'xs' | 'sm' | 'md' | 'lg';
-export type Variant = 'solid' | 'outline' | 'ghost' | 'link';
-export type Placement = 'start' | 'end';
-
-export type BoxProps = CSSProperties & {
-  children?: ReactChild;
+type BoxProps = HTMLAttributes<HTMLDivElement> & {
+  children?: ReactChild[] | ReactChild | null;
 
   /**
-   * You can choose a centered position of child contents.
+   * You can inject styles as 'style' properties on react node.
    */
-  centered: boolean;
+  boxStyle?: CSSProperties;
 };
 
 const Box = forwardRef<HTMLDivElement, BoxProps>(
-  ({ children, centered, ...args }, ref) => {
-    const centeredOrNotStyle = useMemo(
-      () => css`
-        ${centered &&
-        css`
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        `}
-      `,
-      [centered]
-    );
-
+  ({ children, ...args }, ref) => {
     const defaultStyle = useMemo(
       () => css`
-        ${{ ...args }}
+        ${{ ...args.boxStyle }}
       `,
-      [args]
+      [args.boxStyle]
     );
     return (
-      <div ref={ref} css={[centeredOrNotStyle, defaultStyle]}>
+      <div ref={ref} css={[defaultStyle]}>
         {children}
       </div>
     );

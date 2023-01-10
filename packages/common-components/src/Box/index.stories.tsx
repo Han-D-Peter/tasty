@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { Story } from '@storybook/react';
 
-import Box, { BoxProps } from './index';
+import Box from './index';
 
 export default {
   title: 'Components/Box',
@@ -19,19 +19,9 @@ export default {
       </div>
     ),
   ],
-  argTypes: {
-    display: {
-      options: ['block', 'flex'],
-      control: { type: 'radio' },
-    },
-    backgroundColor: {
-      options: ['red', 'blue'],
-      control: { type: 'radio' },
-    },
-  },
 };
 
-export const Basic: Story<BoxProps> = ({ ...args }) => (
+export const Basic: Story<typeof Box> = ({ ...args }) => (
   <div
     style={{
       display: 'grid',
