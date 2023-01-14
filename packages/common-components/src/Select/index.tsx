@@ -59,10 +59,11 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
 
     const iconStyle = useMemo(
       () => css`
-        top: 0;
-        width: 100%;
-        position: absolute;
         ${sizeStyle}
+        top: 0;
+        right: 0;
+        width: 10%;
+        position: absolute;
         display: flex;
         justify-content: end;
         align-items: center;
