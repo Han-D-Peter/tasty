@@ -263,6 +263,7 @@ const DropdownItem = ({ children }: { children: string }) => {
         color: #2c98fc;
       `}
       &:focus {
+        outline: 0;
         color: #2c98fc;
         background-color: #d9d9d9;
       }
