@@ -22,7 +22,7 @@
     },
     {
       "path": "packages/common-utils"
-    },
+    }
   ],
   "exclude": ["packages/**/dist/**"],
   "include": []

@@ -20,10 +20,10 @@ const useOnClickOutside = (
   }
 
   useEffect(() => {
-    document.addEventListener(eventType, handleEvent, true);
+    document.addEventListener(eventType, handleEvent);
 
     return () => {
-      document.removeEventListener(eventType, handleEvent, true);
+      document.removeEventListener(eventType, handleEvent);
     };
   });
 

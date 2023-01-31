@@ -1,9 +1,8 @@
 import {
+  Children,
   createContext,
   MouseEvent,
   ReactElement,
-  useCallback,
-  useContext,
   useMemo,
   useRef,
   useState,
@@ -13,8 +12,12 @@ import { css, useTheme } from '@emotion/react';
 
 import { getCheckboxColorCode } from '../../utils/utils';
 import { Color } from '../Button/index';
-import useIsShown from '../hooks/useIsShown';
+import useBoolean from '../hooks/useBoolean';
+import useMoveByKeyboard from '../hooks/useMoveByKeyboard';
 import useOnClickOutside from '../hooks/useOnClickOutside';
+
+// eslint-disable-next-line import/no-cycle
+import useDropdown from './hooks/useDropdown';
 
 type DropdownProps = {
   /**
@@ -51,14 +54,18 @@ interface DropdownItemContainerProps {
     | null;
 }
 
-interface DropdownContext extends DropdownProps {
+export interface DropdownContextType extends DropdownProps {
   selectedValue: string | null;
   onSelectValue: (value: string) => void;
   onToggle: () => void;
-  onClose: () => void;
-  onOpen: () => void;
-  isShown: boolean;
+  turnFalse: () => void;
+  turnTrue: () => void;
+  boolean: boolean;
 }
+
+const dropdownBoxStyle = css`
+  display: relative;
+`;
 
 const removeNativeStyle = css`
   appearance: none;
@@ -113,9 +120,12 @@ const defaultUlStyle = css`
   margin-top: 10px;
   background-color: white;
   padding-inline-start: 0px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
-const DropdownContext = createContext<DropdownContext | null>(null);
+export const DropdownContext = createContext<DropdownContextType | null>(null);
 DropdownContext.displayName = 'DropdownContext';
 
 const Dropdown = ({
@@ -132,12 +142,17 @@ const Dropdown = ({
   const [selectedValue, setSelectedValue] = useState<string | null>(
     value ?? null
   );
-  const { isShown, onClose, onOpen } = useIsShown(expanded ?? false);
+  const { boolean, turnTrue, turnFalse } = useBoolean(expanded ?? false);
 
-  const onToggle = useCallback(() => {
-    if (isShown) onClose();
-    if (!isShown) onOpen();
-  }, [isShown]);
+  const dropdownBoxRef = useRef<HTMLDivElement>(null);
+  useOnClickOutside(dropdownBoxRef, () => {
+    turnFalse();
+  });
+
+  const onToggle = () => {
+    if (boolean) turnFalse();
+    if (!boolean) turnTrue();
+  };
 
   const onSelectValue = (selectValue: string) => {
     setSelectedValue(selectValue);
@@ -146,19 +161,14 @@ const Dropdown = ({
     }
   };
 
-  const dropdownBoxRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside(dropdownBoxRef, () => {
-    onClose();
-  });
-
   const providerValue = useMemo(
     () => ({
       selectedValue,
       onSelectValue,
       onToggle,
-      isShown,
-      onClose,
-      onOpen,
+      boolean,
+      turnFalse,
+      turnTrue,
       placeholder,
       onSelect,
       colorScheme,
@@ -166,14 +176,14 @@ const Dropdown = ({
       icon,
       direction,
     }),
-    [selectedValue, isShown]
+    [selectedValue, boolean]
   );
 
   return (
     <DropdownContext.Provider value={providerValue}>
       {direction === 'bottom' && <div ref={dropdownBoxRef}>{children}</div>}
       {direction === 'above' && children && (
-        <div ref={dropdownBoxRef}>{[children[1], children[0]]}</div>
+        <div ref={dropdownBoxRef}>{Children.toArray(children).reverse()}</div>
       )}
     </DropdownContext.Provider>
   );
@@ -183,9 +193,7 @@ const DropdownHeader = ({
   colorScheme = 'teal',
   placeholder,
 }: DrowdownHeaderProps) => {
-  const context = useContext(DropdownContext);
-
-  const { onToggle, selectedValue } = context as DropdownContext;
+  const { onToggle, selectedValue } = useDropdown();
 
   const theme = useTheme();
   const colorStyle = useMemo(
@@ -215,22 +223,20 @@ const DropdownHeader = ({
 };
 
 const DropdownItemContainer = ({ children }: DropdownItemContainerProps) => {
-  const context = useContext(DropdownContext);
+  const { boolean } = useDropdown();
 
-  const { isShown } = context as DropdownContext;
+  const ref = useMoveByKeyboard();
 
-  if (!isShown) return null;
+  if (!boolean) return null;
 
   return (
-    <ul css={defaultUlStyle}>
-      <div>{children}</div>
+    <ul css={[defaultUlStyle]}>
+      <div ref={ref}>{children}</div>
     </ul>
   );
 };
 const DropdownItem = ({ children }: { children: string }) => {
-  const context = useContext(DropdownContext);
-
-  const { selectedValue, onSelectValue, onClose } = context as DropdownContext;
+  const { selectedValue, onSelectValue, turnFalse } = useDropdown();
 
   const getValueFromListItem = (event: MouseEvent) => {
     const target = event.target as HTMLButtonElement;
@@ -242,7 +248,7 @@ const DropdownItem = ({ children }: { children: string }) => {
       display: flex;
       align-items: center;
       margin: 5px 20px 5px 20px;
-      width: 100%;
+      width: 95%;
       height: 50px;
       border-radius: 7px;
       padding-left: 10px;
@@ -256,6 +262,10 @@ const DropdownItem = ({ children }: { children: string }) => {
       css`
         color: #2c98fc;
       `}
+      &:focus {
+        color: #2c98fc;
+        background-color: #d9d9d9;
+      }
     `,
     [selectedValue]
   );
@@ -266,7 +276,7 @@ const DropdownItem = ({ children }: { children: string }) => {
         type="button"
         onClick={e => {
           getValueFromListItem(e);
-          onClose();
+          turnFalse();
         }}
         css={listBtnStyle}
       >
