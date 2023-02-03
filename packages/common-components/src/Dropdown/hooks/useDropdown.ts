@@ -1,5 +1,3 @@
-import assert from 'assert';
-
 import { useContext } from 'react';
 
 // eslint-disable-next-line import/no-cycle
