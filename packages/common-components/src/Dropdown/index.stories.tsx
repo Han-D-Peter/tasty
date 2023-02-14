@@ -23,10 +23,11 @@ export default {
 export const Basic: Story<typeof Dropdown> = ({ ...args }) => (
   <div
     style={{
+      position: 'relative',
       display: 'flex',
       flexDirection: 'column',
       margin: '20px',
-
+      marginTop: '600px',
       width: '500px',
     }}
   >

@@ -60,6 +60,7 @@ export interface DropdownContextType extends DropdownProps {
   onToggle: () => void;
   turnFalse: () => void;
   turnTrue: () => void;
+  setDirectionAboveOrBottom: (option: 'above' | 'bottom') => void;
   boolean: boolean;
 }
 
@@ -142,6 +143,7 @@ const Dropdown = ({
   const [selectedValue, setSelectedValue] = useState<string | null>(
     value ?? null
   );
+  const [filpableDirection, setFlipableDirection] = useState(direction);
   const { boolean, turnTrue, turnFalse } = useBoolean(expanded ?? false);
 
   const dropdownBoxRef = useRef<HTMLDivElement>(null);
@@ -161,6 +163,10 @@ const Dropdown = ({
     }
   };
 
+  const setDirectionAboveOrBottom = (option: 'above' | 'bottom') => {
+    setFlipableDirection(option);
+  };
+
   const providerValue = useMemo(
     () => ({
       selectedValue,
@@ -174,15 +180,18 @@ const Dropdown = ({
       colorScheme,
       disabled,
       icon,
-      direction,
+      filpableDirection,
+      setDirectionAboveOrBottom,
     }),
     [selectedValue, boolean]
   );
 
   return (
     <DropdownContext.Provider value={providerValue}>
-      {direction === 'bottom' && <div ref={dropdownBoxRef}>{children}</div>}
-      {direction === 'above' && children && (
+      {filpableDirection === 'bottom' && (
+        <div ref={dropdownBoxRef}>{children}</div>
+      )}
+      {filpableDirection === 'above' && children && (
         <div ref={dropdownBoxRef}>{Children.toArray(children).reverse()}</div>
       )}
     </DropdownContext.Provider>
@@ -193,7 +202,25 @@ const DropdownHeader = ({
   colorScheme = 'teal',
   placeholder,
 }: DrowdownHeaderProps) => {
-  const { onToggle, selectedValue } = useDropdown();
+  const { onToggle, selectedValue, setDirectionAboveOrBottom } = useDropdown();
+
+  const ref = useRef<HTMLButtonElement>(null);
+
+  const switchOpenPosition = () => {
+    if (ref.current) {
+      const isChangeToAbove =
+        window.innerHeight +
+          window.pageYOffset -
+          ref.current.getBoundingClientRect().bottom <
+        200;
+      if (isChangeToAbove) {
+        setDirectionAboveOrBottom('above');
+      }
+      if (!isChangeToAbove) {
+        setDirectionAboveOrBottom('bottom');
+      }
+    }
+  };
 
   const theme = useTheme();
   const colorStyle = useMemo(
@@ -205,9 +232,13 @@ const DropdownHeader = ({
 
   return (
     <button
+      ref={ref}
       type="button"
       css={[removeNativeStyle, defaultDropDownStyle, colorStyle]}
-      onClick={onToggle}
+      onClick={() => {
+        switchOpenPosition();
+        onToggle();
+      }}
     >
       <div css={innerBoxStyle}>
         <div>
