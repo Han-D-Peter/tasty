@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useCallback, useEffect, useState } from 'react';
 
 const useOnClickOutside = (
   ref: RefObject<HTMLElement> | undefined,
@@ -7,17 +7,23 @@ const useOnClickOutside = (
   const [isTouchEvent, setTouchEvent] = useState(false);
   const eventType = isTouchEvent ? 'touchend' : 'click';
 
-  function handleEvent(event: Event) {
-    if (event.type === 'click' && isTouchEvent) {
-      return;
-    }
-
-    if (ref?.current && event.target !== null) {
-      if (!ref.current.contains(event.target as Node)) {
-        callback(event);
+  const handleEvent = useCallback(
+    (event: Event) => {
+      if (event.type === 'click' && isTouchEvent) {
+        return;
       }
-    }
-  }
+
+      if (ref?.current && event.target !== null) {
+        console.log('ref', ref.current);
+        console.log('target', event.target);
+        if (!ref.current.contains(event.target as Node)) {
+          console.log('click outside');
+          callback(event);
+        }
+      }
+    },
+    [callback]
+  );
 
   useEffect(() => {
     document.addEventListener(eventType, handleEvent);
