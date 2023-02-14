@@ -9,6 +9,7 @@ import {
 } from 'react';
 
 import { css, useTheme } from '@emotion/react';
+import FocusTrap from 'focus-trap-react';
 
 import { getCheckboxColorCode } from '../../utils/utils';
 import { Color } from '../Button/index';
@@ -281,7 +282,12 @@ const DropdownItemContainer = ({ children }: DropdownItemContainerProps) => {
 
   return (
     <ul css={[defaultUlStyle]}>
-      <div ref={ref}>{children}</div>
+      <FocusTrap
+        active={isOpened}
+        focusTrapOptions={{ allowOutsideClick: true }}
+      >
+        <div ref={ref}>{children}</div>
+      </FocusTrap>
     </ul>
   );
 };

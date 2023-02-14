@@ -1,7 +1,11 @@
 info @storybook/react v6.4.12
 info 
-info => Cleaning outputDir: /var/folders/vj/vg0sj9kj3hl6fl7kvbxzt70h0000gn/T/chromatic--28566-6fY2T5tlGuGx
+info => Cleaning outputDir: /var/folders/vj/vg0sj9kj3hl6fl7kvbxzt70h0000gn/T/chromatic--12628-6icXtYFIVXf1
+(node:12751) [MODULE_NOT_FOUND] Error: debug tried to access supports-color (a peer dependency) but it isn't provided by its ancestors; this makes the require call ambiguous and unsound.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12751) [MODULE_NOT_FOUND] Error: node-fetch tried to access encoding, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
 info => Loading presets
+(node:12751) [MODULE_NOT_FOUND] Error: node-fetch tried to access encoding (a peer dependency) but it isn't provided by its ancestors; this makes the require call ambiguous and unsound.
 info => Compiling manager..
 info => Compiling preview..
 info => Using implicit CSS loaders
@@ -122,33 +126,40 @@ info => Using default Webpack5 setup
 Browserslist: caniuse-lite is outdated. Please run:
   npx browserslist@latest --update-db
   Why you should do it regularly: https://github.com/browserslist/browserslist#browsers-data-updating
+<s> [webpack.Progress] 10% building 0/15 entries 16/49 dependencies 0/15 modules
 <s> [webpack.Progress] 13% building 1/15 entries 33/71 dependencies 3/30 modules
-<s> [webpack.Progress] 13% building 1/15 entries 531/802 dependencies 18/200 modules
+<s> [webpack.Progress] 13% building 1/15 entries 426/802 dependencies 15/164 modules
 <s> [webpack.Progress] 13% building import loader ../../.yarn/__virtual__/babel-loader-virtual-a7e7f4466b/0/cache/babel-loader-npm-8.2.3-855681b984-78e1e1a919.zip/node_modules/babel-loader/lib/index.js
-<s> [webpack.Progress] 13% building 1/15 entries 758/802 dependencies 19/287 modules
+<s> [webpack.Progress] 13% building 1/15 entries 760/802 dependencies 19/289 modules
 <s> [webpack.Progress] 13% building import loader ../../.yarn/__virtual__/@storybook-source-loader-virtual-8d85b0f8cf/0/cache/@storybook-source-loader-npm-6.4.12-d908c08dd8-85f2f1fec8.zip/node_modules/@storybook/source-loader/dist/cjs/index.js
-<s> [webpack.Progress] 13% building 1/15 entries 776/808 dependencies 20/297 modules
-<s> [webpack.Progress] 13% building 1/15 entries 900/1097 dependencies 34/342 modules
-<s> [webpack.Progress] 13% building 1/15 entries 1800/2032 dependencies 125/508 modules
-<s> [webpack.Progress] 13% building 1/15 entries 2476/2500 dependencies 259/632 modules
-<s> [webpack.Progress] 13% building import loader ../../.yarn/__virtual__/babel-loader-virtual-15c62ef817/0/cache/babel-loader-npm-8.2.3-855681b984-78e1e1a919.zip/node_modules/babel-loader/lib/index.js
-<s> [webpack.Progress] 13% building 1/15 entries 2969/2996 dependencies 338/702 modules
-<s> [webpack.Progress] 17% building 2/15 entries 3396/3438 dependencies 385/775 modules
-<s> [webpack.Progress] 21% building 3/15 entries 3396/3438 dependencies 386/775 modules
-<s> [webpack.Progress] 24% building 4/15 entries 4152/4215 dependencies 604/1019 modules
-<s> [webpack.Progress] 28% building 5/15 entries 4285/4327 dependencies 684/1039 modules
-<s> [webpack.Progress] 31% building 6/15 entries 4285/4327 dependencies 685/1039 modules
-<s> [webpack.Progress] 35% building 7/15 entries 4285/4327 dependencies 687/1039 modules
-<s> [webpack.Progress] 39% building 8/15 entries 4285/4327 dependencies 689/1039 modules
-<s> [webpack.Progress] 43% building 9/15 entries 4285/4327 dependencies 692/1039 modules
-<s> [webpack.Progress] 42% building 9/15 entries 4800/4870 dependencies 936/1120 modules
+(node:12759) [MODULE_NOT_FOUND] Error: @types/react tried to access prop-types, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12759) [MODULE_NOT_FOUND] Error: @types/react tried to access scheduler, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
+(node:12759) [MODULE_NOT_FOUND] Error: @storybook/theming tried to access @emotion/serialize, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
+(node:12759) [MODULE_NOT_FOUND] Error: @storybook/theming tried to access @emotion/utils, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
+<s> [webpack.Progress] 13% building 1/15 entries 790/812 dependencies 20/307 modules
+<s> [webpack.Progress] 13% building 1/15 entries 900/1107 dependencies 37/337 modules
+<s> [webpack.Progress] 13% building 1/15 entries 1699/1800 dependencies 111/501 modules
+<s> [webpack.Progress] 13% building 1/15 entries 2413/2461 dependencies 233/600 modules
+<s> [webpack.Progress] 17% building 2/15 entries 2789/2826 dependencies 314/664 modules
+<s> [webpack.Progress] 17% building import loader ../../.yarn/__virtual__/babel-loader-virtual-15c62ef817/0/cache/babel-loader-npm-8.2.3-855681b984-78e1e1a919.zip/node_modules/babel-loader/lib/index.js
+<s> [webpack.Progress] 17% building 2/15 entries 2815/2834 dependencies 329/671 modules
+<s> [webpack.Progress] 21% building 3/15 entries 3119/3354 dependencies 371/722 modules
+<s> [webpack.Progress] 21% building 3/15 entries 4077/4100 dependencies 531/1008 modules
+<s> [webpack.Progress] 24% building 4/15 entries 4084/4102 dependencies 549/1008 modules
+<s> [webpack.Progress] 28% building 5/15 entries 4213/4258 dependencies 683/1027 modules
+<s> [webpack.Progress] 32% building 6/15 entries 4213/4258 dependencies 684/1027 modules
+<s> [webpack.Progress] 35% building 7/15 entries 4213/4258 dependencies 686/1027 modules
+<s> [webpack.Progress] 39% building 8/15 entries 4213/4258 dependencies 689/1027 modules
+<s> [webpack.Progress] 42% building 9/15 entries 4394/4484 dependencies 763/1067 modules
+<s> [webpack.Progress] 43% building 9/15 entries 5026/5068 dependencies 1000/1168 modules
 <s> [webpack.Progress] 43% building import loader ../../.yarn/__virtual__/babel-loader-virtual-f154777488/0/cache/babel-loader-npm-8.2.3-855681b984-78e1e1a919.zip/node_modules/babel-loader/lib/index.js
-<s> [webpack.Progress] 43% building 9/15 entries 5138/5175 dependencies 1021/1197 modules
-<s> [webpack.Progress] 46% building 10/15 entries 5236/5282 dependencies 1082/1207 modules
-<s> [webpack.Progress] 50% building 11/15 entries 5410/5425 dependencies 1196/1263 modules
-<s> [webpack.Progress] 54% building 12/15 entries 5483/5488 dependencies 1245/1272 modules
-<s> [webpack.Progress] 57% building 13/15 entries 5487/5488 dependencies 1256/1272 modules
-<s> [webpack.Progress] 57% building 13/15 entries 5589/5600 dependencies 1267/1282 modules
+<s> [webpack.Progress] 43% building 9/15 entries 5123/5196 dependencies 1023/1185 modules
+<s> [webpack.Progress] 46% building 10/15 entries 5322/5356 dependencies 1098/1235 modules
+<s> [webpack.Progress] 50% building 11/15 entries 5476/5487 dependencies 1226/1272 modules
+<s> [webpack.Progress] 54% building 12/15 entries 5478/5487 dependencies 1242/1272 modules
+<s> [webpack.Progress] 57% building 13/15 entries 5488/5488 dependencies 1257/1273 modules
+<s> [webpack.Progress] 57% building 13/15 entries 5588/5600 dependencies 1265/1282 modules
 <s> [webpack.Progress] 61% building 14/15 entries 5631/5631 dependencies 1289/1290 modules
 <s> [webpack.Progress] 65% building 15/15 entries 5631/5631 dependencies 1290/1290 modules
 <s> [webpack.Progress] 65% building
@@ -192,6 +203,10 @@ Browserslist: caniuse-lite is outdated. Please run:
 <s> [webpack.Progress] 76% sealing after chunk optimization
 <s> [webpack.Progress] 77% sealing module and chunk tree optimization
 <s> [webpack.Progress] 77% sealing module and chunk tree optimization PersistentChildCompilerSingletonPlugin
+(node:12751) [MODULE_NOT_FOUND] Error: @types/react tried to access prop-types, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
+(node:12751) [MODULE_NOT_FOUND] Error: @types/react tried to access scheduler, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
+(node:12751) [MODULE_NOT_FOUND] Error: @storybook/theming tried to access @emotion/serialize, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
+(node:12751) [MODULE_NOT_FOUND] Error: @storybook/theming tried to access @emotion/utils, but it isn't declared in its dependencies; this makes the require call ambiguous and unsound.
 <s> [webpack.Progress] 77% sealing module and chunk tree optimization
 <s> [webpack.Progress] 77% sealing after module and chunk tree optimization
 <s> [webpack.Progress] 77% sealing after module and chunk tree optimization
@@ -252,8 +267,8 @@ Browserslist: caniuse-lite is outdated. Please run:
 <s> [webpack.Progress] 92% sealing asset processing TerserPlugin
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.a0b080a9.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.a0b080a9.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.b227b98f.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin main.b227b98f.iframe.bundle.js generated SourceMap
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.2eac08a7.iframe.bundle.js generate SourceMap
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin runtime~main.2eac08a7.iframe.bundle.js generated SourceMap
 <s> [webpack.Progress] 92% sealing asset processing SourceMapDevToolPlugin 514.e06a50bc.iframe.bundle.js generate SourceMap
@@ -280,8 +295,8 @@ Browserslist: caniuse-lite is outdated. Please run:
 <s> [webpack.Progress] 92% sealing asset processing HtmlWebpackPlugin
 <s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin
 <s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin
-<s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin main.fbdb47bd.iframe.bundle.js generate SourceMap
-<s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin main.fbdb47bd.iframe.bundle.js generated SourceMap
+<s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin main.87d6167a.iframe.bundle.js generate SourceMap
+<s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin main.87d6167a.iframe.bundle.js generated SourceMap
 <s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin runtime~main.426a07fb.iframe.bundle.js generate SourceMap
 <s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin runtime~main.426a07fb.iframe.bundle.js generated SourceMap
 <s> [webpack.Progress] 92% sealing asset processing RealContentHashPlugin 514.014d65e8.iframe.bundle.js generate SourceMap
@@ -326,7 +341,7 @@ Browserslist: caniuse-lite is outdated. Please run:
 <s> [webpack.Progress] 99% cache begin idle
 <s> [webpack.Progress] 100% 
 
-info => Preview built (14 s)
+info => Preview built (15 s)
 WARN asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).
 WARN This can impact web performance.
 WARN Assets: 
@@ -337,11 +352,11 @@ WARN Entrypoints:
 WARN   main (1.82 MiB)
 WARN       runtime~main.426a07fb.iframe.bundle.js
 WARN       53.8c4808cc.iframe.bundle.js
-WARN       main.fbdb47bd.iframe.bundle.js
+WARN       main.87d6167a.iframe.bundle.js
 WARN 
 <s> [webpack.Progress] 99% cache shutdown
 <s> [webpack.Progress] 99% cache shutdown
 <s> [webpack.Progress] 100% 
 
-info => Manager built (14 s)
-info => Output directory: /var/folders/vj/vg0sj9kj3hl6fl7kvbxzt70h0000gn/T/chromatic--28566-6fY2T5tlGuGx
+info => Manager built (16 s)
+info => Output directory: /var/folders/vj/vg0sj9kj3hl6fl7kvbxzt70h0000gn/T/chromatic--12628-6icXtYFIVXf1
