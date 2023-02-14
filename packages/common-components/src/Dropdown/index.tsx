@@ -61,11 +61,15 @@ export interface DropdownContextType extends DropdownProps {
   turnFalse: () => void;
   turnTrue: () => void;
   setDirectionAboveOrBottom: (option: 'above' | 'bottom') => void;
+  filpableDirection: 'above' | 'bottom';
   boolean: boolean;
 }
 
 const dropdownBoxStyle = css`
-  display: relative;
+  min-width: 150px;
+  width: 100%;
+  height: 45px;
+  position: relative;
 `;
 
 const removeNativeStyle = css`
@@ -77,6 +81,7 @@ const removeNativeStyle = css`
 const defaultDropDownStyle = css`
   min-width: 150px;
   width: 100%;
+  height: 45px;
   border-width: 1px;
   margin: 0;
 
@@ -110,22 +115,6 @@ const innerBoxStyle = css`
   padding: 10px 8px 3px 8px;
 `;
 
-const defaultUlStyle = css`
-  list-style: none;
-  overflow: scroll;
-  width: 100%;
-  min-height: 200px;
-  max-height: 400px;
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  margin-top: 10px;
-  background-color: white;
-  padding-inline-start: 0px;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
 export const DropdownContext = createContext<DropdownContextType | null>(null);
 DropdownContext.displayName = 'DropdownContext';
 
@@ -143,7 +132,9 @@ const Dropdown = ({
   const [selectedValue, setSelectedValue] = useState<string | null>(
     value ?? null
   );
-  const [filpableDirection, setFlipableDirection] = useState(direction);
+  const [filpableDirection, setFlipableDirection] = useState(
+    direction ?? 'bottom'
+  );
   const { boolean, turnTrue, turnFalse } = useBoolean(expanded ?? false);
 
   const dropdownBoxRef = useRef<HTMLDivElement>(null);
@@ -188,12 +179,12 @@ const Dropdown = ({
 
   return (
     <DropdownContext.Provider value={providerValue}>
-      {filpableDirection === 'bottom' && (
-        <div ref={dropdownBoxRef}>{children}</div>
-      )}
-      {filpableDirection === 'above' && children && (
-        <div ref={dropdownBoxRef}>{Children.toArray(children).reverse()}</div>
-      )}
+      <div ref={dropdownBoxRef} css={dropdownBoxStyle}>
+        {filpableDirection === 'above' &&
+          children &&
+          Children.toArray(children).reverse()}
+        {filpableDirection === 'bottom' && children}
+      </div>
     </DropdownContext.Provider>
   );
 };
@@ -236,8 +227,8 @@ const DropdownHeader = ({
       type="button"
       css={[removeNativeStyle, defaultDropDownStyle, colorStyle]}
       onClick={() => {
-        switchOpenPosition();
         onToggle();
+        switchOpenPosition();
       }}
     >
       <div css={innerBoxStyle}>
@@ -254,11 +245,39 @@ const DropdownHeader = ({
 };
 
 const DropdownItemContainer = ({ children }: DropdownItemContainerProps) => {
-  const { boolean } = useDropdown();
+  const { boolean: isOpened, filpableDirection } = useDropdown();
 
   const ref = useMoveByKeyboard();
 
-  if (!boolean) return null;
+  const defaultUlStyle = useMemo(
+    () => css`
+      position: absolute;
+      ${filpableDirection === 'bottom' &&
+      css`
+        top: 40px;
+      `}
+      ${filpableDirection === 'above' &&
+      css`
+        bottom: 35px;
+      `}
+      list-style: none;
+      overflow: scroll;
+      width: 100%;
+      min-height: 200px;
+      max-height: 400px;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      margin-top: 10px;
+      background-color: white;
+      padding-inline-start: 0px;
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    `,
+    [filpableDirection]
+  );
+
+  if (!isOpened) return null;
 
   return (
     <ul css={[defaultUlStyle]}>

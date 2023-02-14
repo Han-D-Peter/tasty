@@ -19,6 +19,7 @@ const useDropdown = () => {
     disabled,
     icon,
     direction,
+    filpableDirection,
     setDirectionAboveOrBottom,
   } = context;
 
@@ -35,6 +36,7 @@ const useDropdown = () => {
     disabled,
     icon,
     direction,
+    filpableDirection,
     setDirectionAboveOrBottom,
   } as const;
 };
