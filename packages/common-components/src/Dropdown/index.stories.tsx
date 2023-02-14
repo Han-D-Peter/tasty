@@ -12,7 +12,12 @@ export default {
       </div>
     ),
   ],
-  argTypes: {},
+  argTypes: {
+    direction: {
+      options: ['bottom', 'above'],
+      control: { type: 'radio' },
+    },
+  },
 };
 
 export const Basic: Story<typeof Dropdown> = ({ ...args }) => (
@@ -25,7 +30,7 @@ export const Basic: Story<typeof Dropdown> = ({ ...args }) => (
       width: '500px',
     }}
   >
-    <Dropdown placeholder="선택하세요" direction="above" {...args}>
+    <Dropdown placeholder="선택하세요" {...args}>
       <Dropdown.Header placeholder="select" />
       <Dropdown.List>
         <Dropdown.Item>apple</Dropdown.Item>
