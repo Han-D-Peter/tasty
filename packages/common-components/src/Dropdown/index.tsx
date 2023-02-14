@@ -247,7 +247,7 @@ const DropdownHeader = ({
 const DropdownItemContainer = ({ children }: DropdownItemContainerProps) => {
   const { boolean: isOpened, filpableDirection } = useDropdown();
 
-  const ref = useMoveByKeyboard();
+  const ref = useMoveByKeyboard<HTMLDivElement>();
 
   const defaultUlStyle = useMemo(
     () => css`

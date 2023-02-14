@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-const useMoveByKeyboard = () => {
-  const ref = useRef<HTMLDivElement>(null);
+function useMoveByKeyboard<Element extends HTMLElement>() {
+  const ref = useRef<Element>(null);
   const [selectIndex, setSelectedIndex] = useState<number | null>(null);
 
   const onKeyboardDown = (event: globalThis.KeyboardEvent) => {
@@ -44,6 +44,6 @@ const useMoveByKeyboard = () => {
   }, []);
 
   return ref;
-};
+}
 
 export default useMoveByKeyboard;
