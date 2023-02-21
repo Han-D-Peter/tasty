@@ -1,43 +1,48 @@
-import { useContext } from 'react';
+/* eslint-disable import/no-cycle */
+import { createContext, useContext } from 'react';
 
-// eslint-disable-next-line import/no-cycle
-import { DropdownContext, DropdownContextType } from '../index';
+import { DropdownContextType } from '../Dropdown.types';
+
+export const DropdownContext = createContext<DropdownContextType | null>(null);
+DropdownContext.displayName = 'DropdownContext';
 
 const useDropdown = () => {
   const context = useContext(DropdownContext) as DropdownContextType;
 
   const {
+    expanded,
+    openDirection,
     selectedValue,
     onSelectValue,
     onToggle,
-    boolean,
-    turnFalse,
-    turnTrue,
+    isOpened,
+    turnClose,
+    turnOpen,
     placeholder,
     onSelect,
     colorScheme,
     disabled,
-    icon,
-    direction,
     filpableDirection,
     setDirectionAboveOrBottom,
+    value,
   } = context;
 
   return {
+    expanded,
     selectedValue,
     onSelectValue,
     onToggle,
-    boolean,
-    turnFalse,
-    turnTrue,
+    isOpened,
+    turnClose,
+    turnOpen,
     placeholder,
     onSelect,
     colorScheme,
     disabled,
-    icon,
-    direction,
+    openDirection,
     filpableDirection,
     setDirectionAboveOrBottom,
+    value,
   } as const;
 };
 
