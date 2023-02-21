@@ -12,6 +12,29 @@ const removeNativeStyle = css`
   -moz-appearance: none;
 `;
 
+const disabledDropdownStyle = css`
+  min-width: 150px;
+  width: 100%;
+  height: 45px;
+  border-width: 1px;
+  margin: 0;
+
+  background-color: white;
+
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  border-color: #d1d0d0;
+  border-radius: 4px;
+  border-style: solid;
+
+  cursor: not-allowed;
+`;
+
 const defaultDropDownStyle = css`
   min-width: 150px;
   width: 100%;
@@ -45,16 +68,17 @@ const placeholderStyle = css`
   color: grey;
 `;
 
-const selectedStyle = css`
-  color: black;
-`;
-
 const DropdownHeader = ({
   colorScheme = 'teal',
   placeholder,
 }: DrowdownHeaderProps) => {
-  const { onToggle, selectedValue, setDirectionAboveOrBottom, value } =
-    useDropdown();
+  const {
+    onToggle,
+    selectedValue,
+    setDirectionAboveOrBottom,
+    value,
+    disabled,
+  } = useDropdown();
 
   const ref = useRef<HTMLButtonElement>(null);
   const theme = useTheme();
@@ -63,6 +87,13 @@ const DropdownHeader = ({
       border-color: ${getCheckboxColorCode(theme.colors, colorScheme)};
     `,
     [colorScheme]
+  );
+
+  const selectedStyle = useMemo(
+    () => css`
+      color: ${disabled ? 'grey' : 'black'};
+    `,
+    [disabled]
   );
 
   const switchOpenPosition = () => {
@@ -80,6 +111,31 @@ const DropdownHeader = ({
       }
     }
   };
+
+  if (disabled)
+    return (
+      <button
+        ref={ref}
+        disabled
+        type="button"
+        css={[disabledDropdownStyle, removeNativeStyle]}
+      >
+        <div css={innerBoxStyle}>
+          <div>
+            {value && <div css={selectedStyle}>{value}</div>}
+            {!selectedValue && !value && (
+              <div css={placeholderStyle}>{placeholder}</div>
+            )}
+            {selectedValue && !value && (
+              <div css={selectedStyle}>{selectedValue}</div>
+            )}
+          </div>
+          <div>
+            <DownArrow size={20} />
+          </div>
+        </div>
+      </button>
+    );
 
   return (
     <button
