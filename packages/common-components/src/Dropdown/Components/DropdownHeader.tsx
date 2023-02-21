@@ -56,6 +56,13 @@ const DropdownHeader = ({
   const { onToggle, selectedValue, setDirectionAboveOrBottom } = useDropdown();
 
   const ref = useRef<HTMLButtonElement>(null);
+  const theme = useTheme();
+  const colorStyle = useMemo(
+    () => css`
+      border-color: ${getCheckboxColorCode(theme.colors, colorScheme)};
+    `,
+    [colorScheme]
+  );
 
   const switchOpenPosition = () => {
     if (ref.current) {
@@ -72,14 +79,6 @@ const DropdownHeader = ({
       }
     }
   };
-
-  const theme = useTheme();
-  const colorStyle = useMemo(
-    () => css`
-      border-color: ${getCheckboxColorCode(theme.colors, colorScheme)};
-    `,
-    [colorScheme]
-  );
 
   return (
     <button
