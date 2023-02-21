@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable import/no-cycle */
 import { MouseEvent, useMemo } from 'react';
 
@@ -6,7 +7,7 @@ import { css } from '@emotion/react';
 import { DropdownElementProps } from '../Dropdown.types';
 import useDropdown from '../hooks/useDropdown';
 
-const DropdownElement = ({ children }: DropdownElementProps) => {
+const DropdownElement = ({ children, selected }: DropdownElementProps) => {
   const { selectedValue, onSelectValue } = useDropdown();
 
   const getValueFromListItem = (event: MouseEvent<HTMLButtonElement>) => {

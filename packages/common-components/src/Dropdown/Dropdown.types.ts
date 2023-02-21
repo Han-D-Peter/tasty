@@ -103,5 +103,6 @@ export interface DrowdownHeaderProps {
 }
 
 export interface DropdownElementProps {
+  selected?: boolean;
   children: string;
 }

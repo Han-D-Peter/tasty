@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { Children, useEffect, useMemo } from 'react';
 
 import { css } from '@emotion/react';
 import FocusTrap from 'focus-trap-react';
@@ -8,7 +8,7 @@ import { DropdownContainerProps } from '../Dropdown.types';
 import useDropdown from '../hooks/useDropdown';
 
 const DropdownContainer = ({ children }: DropdownContainerProps) => {
-  const { isOpened, filpableDirection } = useDropdown();
+  const { isOpened, filpableDirection, onSelectValue } = useDropdown();
 
   const ref = useMoveByKeyboard<HTMLDivElement>();
 
@@ -39,6 +39,17 @@ const DropdownContainer = ({ children }: DropdownContainerProps) => {
     `,
     [filpableDirection]
   );
+
+  useEffect(() => {
+    Children.toArray(children).forEach(child => {
+      const { props } = child as {
+        props: { selected?: boolean; children: string };
+      };
+      if (props.selected) {
+        onSelectValue(props.children);
+      }
+    });
+  }, []);
 
   if (!isOpened) return null;
 
