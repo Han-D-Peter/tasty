@@ -14,10 +14,7 @@ const useOnClickOutside = (
       }
 
       if (ref?.current && event.target !== null) {
-        console.log('ref', ref.current);
-        console.log('target', event.target);
         if (!ref.current.contains(event.target as Node)) {
-          console.log('click outside');
           callback(event);
         }
       }
