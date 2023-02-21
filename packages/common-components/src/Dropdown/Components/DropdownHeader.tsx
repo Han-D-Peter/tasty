@@ -53,7 +53,8 @@ const DropdownHeader = ({
   colorScheme = 'teal',
   placeholder,
 }: DrowdownHeaderProps) => {
-  const { onToggle, selectedValue, setDirectionAboveOrBottom } = useDropdown();
+  const { onToggle, selectedValue, setDirectionAboveOrBottom, value } =
+    useDropdown();
 
   const ref = useRef<HTMLButtonElement>(null);
   const theme = useTheme();
@@ -92,8 +93,13 @@ const DropdownHeader = ({
     >
       <div css={innerBoxStyle}>
         <div>
-          {!selectedValue && <div css={placeholderStyle}>{placeholder}</div>}
-          {selectedValue && <div css={selectedStyle}>{selectedValue}</div>}
+          {value && <div css={selectedStyle}>{value}</div>}
+          {!selectedValue && !value && (
+            <div css={placeholderStyle}>{placeholder}</div>
+          )}
+          {selectedValue && !value && (
+            <div css={selectedStyle}>{selectedValue}</div>
+          )}
         </div>
         <div>
           <DownArrow size={20} />
