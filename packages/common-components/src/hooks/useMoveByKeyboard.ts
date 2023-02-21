@@ -1,17 +1,25 @@
-import { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const useMoveByKeyboard = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [selectIndex, setSelectedIndex] = useState(0);
+function useMoveByKeyboard<Element extends HTMLElement>() {
+  const ref = useRef<Element>(null);
+  const [selectIndex, setSelectedIndex] = useState<number | null>(null);
 
   const onKeyboardDown = (event: globalThis.KeyboardEvent) => {
     const maximum = ref.current?.childNodes.length as number;
+
     if (event.key === 'ArrowDown') {
-      setSelectedIndex((prev: number) => (prev + 1) % maximum);
+      event.preventDefault();
+      setSelectedIndex((prev: number | null) => {
+        if (prev === null) {
+          return 0;
+        }
+        return (prev + 1) % maximum;
+      });
     }
     if (event.key === 'ArrowUp') {
-      setSelectedIndex((prev: number) => {
-        if (prev === 0) {
+      event.preventDefault();
+      setSelectedIndex((prev: number | null) => {
+        if (prev === 0 || prev === null) {
           return maximum - 1;
         }
         return (prev - 1) % maximum;
@@ -20,7 +28,7 @@ const useMoveByKeyboard = () => {
   };
 
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && selectIndex !== null) {
       const button = ref.current?.childNodes[selectIndex]
         ?.firstChild as HTMLButtonElement;
       button.focus();
@@ -36,6 +44,6 @@ const useMoveByKeyboard = () => {
   }, []);
 
   return ref;
-};
+}
 
 export default useMoveByKeyboard;

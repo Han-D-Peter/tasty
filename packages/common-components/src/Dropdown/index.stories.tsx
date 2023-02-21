@@ -25,8 +25,9 @@ export const Basic: Story<typeof Dropdown> = ({ ...args }) => (
     style={{
       display: 'flex',
       flexDirection: 'column',
+      height: '2000px',
       margin: '20px',
-
+      marginTop: '700px',
       width: '500px',
     }}
   >

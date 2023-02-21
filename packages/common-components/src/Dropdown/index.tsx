@@ -9,6 +9,7 @@ import {
 } from 'react';
 
 import { css, useTheme } from '@emotion/react';
+import FocusTrap from 'focus-trap-react';
 
 import { getCheckboxColorCode } from '../../utils/utils';
 import { Color } from '../Button/index';
@@ -60,11 +61,16 @@ export interface DropdownContextType extends DropdownProps {
   onToggle: () => void;
   turnFalse: () => void;
   turnTrue: () => void;
+  setDirectionAboveOrBottom: (option: 'above' | 'bottom') => void;
+  filpableDirection: 'above' | 'bottom';
   boolean: boolean;
 }
 
 const dropdownBoxStyle = css`
-  display: relative;
+  min-width: 150px;
+  width: 100%;
+  height: 45px;
+  position: relative;
 `;
 
 const removeNativeStyle = css`
@@ -76,6 +82,7 @@ const removeNativeStyle = css`
 const defaultDropDownStyle = css`
   min-width: 150px;
   width: 100%;
+  height: 45px;
   border-width: 1px;
   margin: 0;
 
@@ -109,22 +116,6 @@ const innerBoxStyle = css`
   padding: 10px 8px 3px 8px;
 `;
 
-const defaultUlStyle = css`
-  list-style: none;
-  overflow: scroll;
-  width: 100%;
-  min-height: 200px;
-  max-height: 400px;
-  border-radius: 4px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  margin-top: 10px;
-  background-color: white;
-  padding-inline-start: 0px;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
 export const DropdownContext = createContext<DropdownContextType | null>(null);
 DropdownContext.displayName = 'DropdownContext';
 
@@ -141,6 +132,9 @@ const Dropdown = ({
 }: DropdownProps) => {
   const [selectedValue, setSelectedValue] = useState<string | null>(
     value ?? null
+  );
+  const [filpableDirection, setFlipableDirection] = useState(
+    direction ?? 'bottom'
   );
   const { boolean, turnTrue, turnFalse } = useBoolean(expanded ?? false);
 
@@ -161,6 +155,10 @@ const Dropdown = ({
     }
   };
 
+  const setDirectionAboveOrBottom = (option: 'above' | 'bottom') => {
+    setFlipableDirection(option);
+  };
+
   const providerValue = useMemo(
     () => ({
       selectedValue,
@@ -174,17 +172,20 @@ const Dropdown = ({
       colorScheme,
       disabled,
       icon,
-      direction,
+      filpableDirection,
+      setDirectionAboveOrBottom,
     }),
     [selectedValue, boolean]
   );
 
   return (
     <DropdownContext.Provider value={providerValue}>
-      {direction === 'bottom' && <div ref={dropdownBoxRef}>{children}</div>}
-      {direction === 'above' && children && (
-        <div ref={dropdownBoxRef}>{Children.toArray(children).reverse()}</div>
-      )}
+      <div ref={dropdownBoxRef} css={dropdownBoxStyle}>
+        {filpableDirection === 'above' &&
+          children &&
+          Children.toArray(children).reverse()}
+        {filpableDirection === 'bottom' && children}
+      </div>
     </DropdownContext.Provider>
   );
 };
@@ -193,7 +194,25 @@ const DropdownHeader = ({
   colorScheme = 'teal',
   placeholder,
 }: DrowdownHeaderProps) => {
-  const { onToggle, selectedValue } = useDropdown();
+  const { onToggle, selectedValue, setDirectionAboveOrBottom } = useDropdown();
+
+  const ref = useRef<HTMLButtonElement>(null);
+
+  const switchOpenPosition = () => {
+    if (ref.current) {
+      const isChangeToAbove =
+        window.innerHeight +
+          window.pageYOffset -
+          ref.current.getBoundingClientRect().bottom <
+        200;
+      if (isChangeToAbove) {
+        setDirectionAboveOrBottom('above');
+      }
+      if (!isChangeToAbove) {
+        setDirectionAboveOrBottom('bottom');
+      }
+    }
+  };
 
   const theme = useTheme();
   const colorStyle = useMemo(
@@ -205,9 +224,13 @@ const DropdownHeader = ({
 
   return (
     <button
+      ref={ref}
       type="button"
       css={[removeNativeStyle, defaultDropDownStyle, colorStyle]}
-      onClick={onToggle}
+      onClick={() => {
+        onToggle();
+        switchOpenPosition();
+      }}
     >
       <div css={innerBoxStyle}>
         <div>
@@ -223,15 +246,48 @@ const DropdownHeader = ({
 };
 
 const DropdownItemContainer = ({ children }: DropdownItemContainerProps) => {
-  const { boolean } = useDropdown();
+  const { boolean: isOpened, filpableDirection } = useDropdown();
 
-  const ref = useMoveByKeyboard();
+  const ref = useMoveByKeyboard<HTMLDivElement>();
 
-  if (!boolean) return null;
+  const defaultUlStyle = useMemo(
+    () => css`
+      position: absolute;
+      ${filpableDirection === 'bottom' &&
+      css`
+        top: 40px;
+      `}
+      ${filpableDirection === 'above' &&
+      css`
+        bottom: 35px;
+      `}
+      list-style: none;
+      overflow: scroll;
+      width: 100%;
+      min-height: 200px;
+      max-height: 400px;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      margin-top: 10px;
+      background-color: white;
+      padding-inline-start: 0px;
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    `,
+    [filpableDirection]
+  );
+
+  if (!isOpened) return null;
 
   return (
     <ul css={[defaultUlStyle]}>
-      <div ref={ref}>{children}</div>
+      <FocusTrap
+        active={isOpened}
+        focusTrapOptions={{ allowOutsideClick: true }}
+      >
+        <div ref={ref}>{children}</div>
+      </FocusTrap>
     </ul>
   );
 };

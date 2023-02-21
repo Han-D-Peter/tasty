@@ -1,5 +1,3 @@
-import assert from 'assert';
-
 import { useContext } from 'react';
 
 // eslint-disable-next-line import/no-cycle
@@ -21,6 +19,8 @@ const useDropdown = () => {
     disabled,
     icon,
     direction,
+    filpableDirection,
+    setDirectionAboveOrBottom,
   } = context;
 
   return {
@@ -36,6 +36,8 @@ const useDropdown = () => {
     disabled,
     icon,
     direction,
+    filpableDirection,
+    setDirectionAboveOrBottom,
   } as const;
 };
 
