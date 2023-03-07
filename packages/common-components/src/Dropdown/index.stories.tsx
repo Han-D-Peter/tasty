@@ -34,7 +34,7 @@ export const Basic: Story<typeof Dropdown> = ({ ...args }) => (
     <Dropdown placeholder="선택하세요" {...args}>
       <Dropdown.Header placeholder="select" />
       <Dropdown.List>
-        <Dropdown.Item>apple</Dropdown.Item>
+        <Dropdown.Item selected>apple</Dropdown.Item>
         <Dropdown.Item>banana</Dropdown.Item>
         <Dropdown.Item>cyan</Dropdown.Item>
         <Dropdown.Item>dog</Dropdown.Item>
